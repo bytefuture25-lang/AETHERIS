@@ -1,10 +1,8 @@
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
-    QLabel,
+    QHBoxLayout,
     QMainWindow,
     QStatusBar,
     QVBoxLayout,
-    QHBoxLayout,
     QWidget,
 )
 
@@ -17,10 +15,11 @@ from app.gui.theme import (
 
 from app.gui.components.header import Header
 from app.gui.components.sidebar import Sidebar
-from app.gui.components.content import Content
+from app.gui.components.page_manager import PageManager
 
 
 class MainWindow(QMainWindow):
+
     def __init__(self):
         super().__init__()
 
@@ -31,30 +30,50 @@ class MainWindow(QMainWindow):
         self._build_ui()
 
     def _build_ui(self):
+
         central = QWidget()
 
-        root_layout = QVBoxLayout()
+        root_layout = QVBoxLayout(central)
         root_layout.setContentsMargins(0, 0, 0, 0)
         root_layout.setSpacing(0)
 
-        header = Header()
+        # Header
+        self.header = Header()
 
+        # Body
         body = QWidget()
 
         body_layout = QHBoxLayout(body)
         body_layout.setContentsMargins(0, 0, 0, 0)
         body_layout.setSpacing(0)
 
-        body_layout.addWidget(Sidebar())
-        body_layout.addWidget(Content(), 1)
+        # Sidebar
+        self.sidebar = Sidebar()
 
-        root_layout.addWidget(header)
+        # Page Manager
+        self.page_manager = PageManager()
+
+        body_layout.addWidget(self.sidebar)
+        body_layout.addWidget(self.page_manager, 1)
+
+        root_layout.addWidget(self.header)
         root_layout.addWidget(body)
-
-        central.setLayout(root_layout)
 
         self.setCentralWidget(central)
 
+        # Status Bar
         status_bar = QStatusBar()
         status_bar.showMessage("ÆTHERIS Ready")
         self.setStatusBar(status_bar)
+
+        # Connect Navigation
+        self.sidebar.page_selected.connect(self.change_page)
+
+        # Default Page
+        self.change_page("dashboard")
+
+    def change_page(self, page_id: str):
+
+        self.page_manager.show_page(page_id)
+
+        self.sidebar.set_active(page_id)

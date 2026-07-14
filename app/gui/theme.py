@@ -64,4 +64,15 @@ QLabel {{
     font-weight: 700;
     color: #00D4FF;
 }}
+
+#PageTitle {{
+    font-size:30px;
+    font-weight:700;
+    color:#00D4FF;
+}}
+
+#PageSubtitle {{
+    font-size:14px;
+    color:#CBD5E1;
+}}
 """

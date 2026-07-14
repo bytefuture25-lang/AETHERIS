@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QFrame,
     QLabel,
@@ -6,13 +6,27 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
+from app.gui.navigation import NAV_ITEMS
+
 
 class Sidebar(QFrame):
+    """
+    ÆTHERIS Navigation Sidebar
+    """
+
+    page_selected = Signal(str)
+
     def __init__(self):
         super().__init__()
 
         self.setObjectName("Sidebar")
         self.setFixedWidth(220)
+
+        self.buttons = {}
+
+        self._build_ui()
+
+    def _build_ui(self):
 
         layout = QVBoxLayout(self)
 
@@ -24,23 +38,35 @@ class Sidebar(QFrame):
 
         layout.addWidget(title)
 
-        items = [
-            "🏠 Dashboard",
-            "🤖 AI Chat",
-            "🎤 Voice",
-            "🧠 Memory",
-            "⚙ Automation",
-            "💻 Coding",
-            "🌐 Browser",
-            "🔌 Plugins",
-            "⚙ Settings",
-        ]
+        for item in NAV_ITEMS:
 
-        for item in items:
-            button = QPushButton(item)
-            button.setCursor(Qt.PointingHandCursor)
+            button = QPushButton(item["title"])
+
             button.setObjectName("NavButton")
+
+            button.setCursor(Qt.PointingHandCursor)
+
             button.setMinimumHeight(40)
+
+            button.clicked.connect(
+                lambda checked=False, page=item["id"]:
+                self.page_selected.emit(page)
+            )
+
             layout.addWidget(button)
 
+            self.buttons[item["id"]] = button
+
         layout.addStretch()
+
+    def set_active(self, page_id: str):
+
+        for pid, button in self.buttons.items():
+
+            if pid == page_id:
+                button.setProperty("active", True)
+            else:
+                button.setProperty("active", False)
+
+            button.style().unpolish(button)
+            button.style().polish(button)
