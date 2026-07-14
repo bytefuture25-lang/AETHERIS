@@ -1,7 +1,37 @@
-from app.core.constants import *
+"""
+ÆTHERIS
+Personal AI Operating Intelligence
 
-print(APP_NAME)
-print(APP_VERSION)
-print(APP_AUTHOR)
-print(ROOT_DIR)
-print(SUPPORTED_AI_MODELS)
+Application Entry Point
+"""
+
+import sys
+
+from app.core.app import Application
+from app.core.logger import logger
+
+
+def main() -> int:
+    """
+    Main entry point of the application.
+    """
+    try:
+        logger.info("Starting ÆTHERIS...")
+
+        app = Application()
+        app.run()
+
+        logger.info("ÆTHERIS exited successfully.")
+        return 0
+
+    except KeyboardInterrupt:
+        logger.warning("Application interrupted by user.")
+        return 0
+
+    except Exception as error:
+        logger.exception(f"Unhandled exception: {error}")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
