@@ -26,17 +26,65 @@ class StatusCard(QFrame):
         layout.setContentsMargins(15, 15, 15, 15)
         layout.setSpacing(8)
 
-        title_label = QLabel(title)
-        title_label.setObjectName("CardTitle")
+        # -----------------------------
+        # Title
+        # -----------------------------
+        self.title_label = QLabel(title)
+        self.title_label.setObjectName("CardTitle")
 
-        value_label = QLabel(value)
-        value_label.setObjectName("CardValue")
+        # -----------------------------
+        # Value (Dynamic)
+        # -----------------------------
+        self.value_label = QLabel(value)
+        self.value_label.setObjectName("CardValue")
 
-        status_label = QLabel(status)
-        status_label.setObjectName("CardStatus")
-        status_label.setAlignment(Qt.AlignmentFlag.AlignRight)
+        # -----------------------------
+        # Status (Dynamic)
+        # -----------------------------
+        self.status_label = QLabel(status)
+        self.status_label.setObjectName("CardStatus")
+        self.status_label.setAlignment(Qt.AlignmentFlag.AlignRight)
 
-        layout.addWidget(title_label)
-        layout.addWidget(value_label)
+        # -----------------------------
+        # Layout
+        # -----------------------------
+        layout.addWidget(self.title_label)
+        layout.addWidget(self.value_label)
         layout.addStretch()
-        layout.addWidget(status_label)
+        layout.addWidget(self.status_label)
+
+    # ---------------------------------
+    # Update Methods
+    # ---------------------------------
+
+    def update_title(self, title: str):
+        self.title_label.setText(title)
+
+    def update_value(self, value: str):
+        self.value_label.setText(value)
+
+    def update_status(self, status: str):
+        self.status_label.setText(status)
+
+    def set_value_color(self, color: str):
+        self.value_label.setStyleSheet(
+            f"color: {color};"
+        )
+
+    def set_status_color(self, color: str):
+        self.status_label.setStyleSheet(
+            f"color: {color};"
+        )
+
+    def update(
+        self,
+        value: str,
+        status: str,
+        status_color: str = "#22C55E",
+    ):
+        """
+        Update the entire card at once.
+        """
+        self.update_value(value)
+        self.update_status(status)
+        self.set_status_color(status_color)
