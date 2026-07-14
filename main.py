@@ -1,35 +1,27 @@
-"""
-ÆTHERIS
-Personal AI Operating Intelligence
-
-Application Entry Point
-"""
-
 import sys
 
 from app.core.app import Application
 from app.core.logger import logger
 
 
-def main() -> int:
-    """
-    Main entry point of the application.
-    """
+def main():
+
     try:
+
         logger.info("Starting ÆTHERIS...")
 
         app = Application()
-        app.run()
 
-        logger.info("ÆTHERIS exited successfully.")
-        return 0
+        exit_code = app.run()
 
-    except KeyboardInterrupt:
-        logger.warning("Application interrupted by user.")
-        return 0
+        logger.info("Application closed.")
 
-    except Exception as error:
-        logger.exception(f"Unhandled exception: {error}")
+        return exit_code
+
+    except Exception:
+
+        logger.exception("Fatal startup error.")
+
         return 1
 
 
