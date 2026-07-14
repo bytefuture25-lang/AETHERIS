@@ -1,5 +1,7 @@
-from app.config import settings
+from app.core.constants import *
 
-print(settings.get("application", "name"))
-print(settings.get("application", "version"))
-print(settings.get("theme", "mode?"))
+print(APP_NAME)
+print(APP_VERSION)
+print(APP_AUTHOR)
+print(ROOT_DIR)
+print(SUPPORTED_AI_MODELS)
