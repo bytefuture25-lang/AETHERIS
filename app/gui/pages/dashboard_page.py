@@ -15,27 +15,45 @@ class DashboardPage(QWidget):
     def __init__(self):
         super().__init__()
 
+        # -------------------------
         # Controller
+        # -------------------------
         self.controller = DashboardController()
 
+        # -------------------------
         # Components
+        # -------------------------
         self.status_grid = StatusGrid()
+        self.activity_panel = ActivityPanel()
 
+        # -------------------------
         # Layout
+        # -------------------------
         layout = QVBoxLayout(self)
+
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(20)
 
         layout.addWidget(WelcomeBanner())
         layout.addWidget(self.status_grid)
-        layout.addWidget(ActivityPanel(), 1)
+        layout.addWidget(self.activity_panel, 1)
 
-        # Auto Refresh Timer
+        # -------------------------
+        # Timer
+        # -------------------------
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.refresh_dashboard)
         self.timer.start(2000)
 
-        # First Update
+        # -------------------------
+        # Initial Logs
+        # -------------------------
+        self.activity_panel.add_log("Dashboard Started")
+        self.activity_panel.add_log("System Monitor Ready")
+
+        # -------------------------
+        # First Refresh
+        # -------------------------
         self.refresh_dashboard()
 
     def refresh_dashboard(self):
@@ -45,9 +63,9 @@ class DashboardPage(QWidget):
 
         data = self.controller.get_dashboard_data()
 
-        # -----------------------
+        # --------------------------------
         # CPU
-        # -----------------------
+        # --------------------------------
 
         cpu_card = self.status_grid.get_card("CPU")
 
@@ -57,13 +75,14 @@ class DashboardPage(QWidget):
                 status="Live"
             )
 
-        # -----------------------
+        # --------------------------------
         # RAM
-        # -----------------------
+        # --------------------------------
 
         ram_card = self.status_grid.get_card("RAM")
 
         if ram_card:
+
             ram = data["ram"]
 
             ram_card.update(
@@ -71,13 +90,14 @@ class DashboardPage(QWidget):
                 status=f"{ram['percent']} % Used"
             )
 
-        # -----------------------
-        # Disk
-        # -----------------------
+        # --------------------------------
+        # Disk (Temporary)
+        # --------------------------------
 
         disk_card = self.status_grid.get_card("Internet")
 
         if disk_card:
+
             disk = data["disk"]
 
             disk_card.update(
