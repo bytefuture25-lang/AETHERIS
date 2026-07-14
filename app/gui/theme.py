@@ -101,4 +101,46 @@ QLabel {{
     font-size: 11px;
     color: #22C55E;
 }}
+
+
+#WelcomeBanner {{
+    background-color: #1E293B;
+    border-radius: 12px;
+    border: 1px solid #334155;
+}}
+
+#BannerTitle {{
+    font-size: 28px;
+    font-weight: bold;
+    color: #00D4FF;
+}}
+
+#BannerSubtitle {{
+    font-size: 14px;
+    color: #CBD5E1;
+}}
+
+#StatusGrid {{
+    background: transparent;
+}}
+
+#ActivityPanel {{
+    background-color: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}}
+
+#ActivityTitle {{
+    font-size:18px;
+    font-weight:bold;
+    color:#00D4FF;
+}}
+
+QTextEdit {{
+    background-color:#111827;
+    border:none;
+    border-radius:8px;
+    color:#F8FAFC;
+    padding:10px;
+}}
 """
