@@ -53,4 +53,15 @@ QStatusBar {{
 QLabel {{
     color: {TEXT_PRIMARY};
 }}
+
+#Header {{
+    background-color: #1E293B;
+    border-bottom: 1px solid #334155;
+}}
+
+#AppTitle {{
+    font-size: 22px;
+    font-weight: 700;
+    color: #00D4FF;
+}}
 """

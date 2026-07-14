@@ -4,6 +4,7 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QStatusBar,
     QVBoxLayout,
+    QHBoxLayout,
     QWidget,
 )
 
@@ -14,6 +15,10 @@ from app.gui.theme import (
     WINDOW_WIDTH,
 )
 
+from app.gui.components.header import Header
+from app.gui.components.sidebar import Sidebar
+from app.gui.components.content import Content
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,7 +26,6 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle(WINDOW_TITLE)
         self.resize(WINDOW_WIDTH, WINDOW_HEIGHT)
-
         self.setStyleSheet(STYLE_SHEET)
 
         self._build_ui()
@@ -29,37 +33,28 @@ class MainWindow(QMainWindow):
     def _build_ui(self):
         central = QWidget()
 
-        layout = QVBoxLayout()
+        root_layout = QVBoxLayout()
+        root_layout.setContentsMargins(0, 0, 0, 0)
+        root_layout.setSpacing(0)
 
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        header = Header()
 
-        title = QLabel("ÆTHERIS")
+        body = QWidget()
 
-        title.setStyleSheet("""
-            font-size:32px;
-            font-weight:bold;
-        """)
+        body_layout = QHBoxLayout(body)
+        body_layout.setContentsMargins(0, 0, 0, 0)
+        body_layout.setSpacing(0)
 
-        subtitle = QLabel(
-            "Personal AI Operating Intelligence"
-        )
+        body_layout.addWidget(Sidebar())
+        body_layout.addWidget(Content(), 1)
 
-        version = QLabel("Version 0.1 • Genesis")
+        root_layout.addWidget(header)
+        root_layout.addWidget(body)
 
-        status = QLabel("System Status : Ready")
-
-        layout.addWidget(title)
-        layout.addWidget(subtitle)
-        layout.addSpacing(20)
-        layout.addWidget(version)
-        layout.addWidget(status)
-
-        central.setLayout(layout)
+        central.setLayout(root_layout)
 
         self.setCentralWidget(central)
 
-        statusbar = QStatusBar()
-
-        statusbar.showMessage("Ready")
-
-        self.setStatusBar(statusbar)
+        status_bar = QStatusBar()
+        status_bar.showMessage("ÆTHERIS Ready")
+        self.setStatusBar(status_bar)
