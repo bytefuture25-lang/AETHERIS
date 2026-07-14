@@ -75,4 +75,30 @@ QLabel {{
     font-size:14px;
     color:#CBD5E1;
 }}
+
+#StatusCard {{
+    background-color: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}}
+
+#StatusCard:hover {{
+    border: 1px solid #00D4FF;
+}}
+
+#CardTitle {{
+    font-size: 12px;
+    color: #CBD5E1;
+}}
+
+#CardValue {{
+    font-size: 22px;
+    font-weight: bold;
+    color: #F8FAFC;
+}}
+
+#CardStatus {{
+    font-size: 11px;
+    color: #22C55E;
+}}
 """

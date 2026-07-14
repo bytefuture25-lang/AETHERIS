@@ -77,3 +77,4 @@ class MainWindow(QMainWindow):
         self.page_manager.show_page(page_id)
 
         self.sidebar.set_active(page_id)
+        
