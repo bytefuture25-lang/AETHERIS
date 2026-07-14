@@ -1,0 +1,64 @@
+application:
+  name: "ÆTHERIS"
+  version: "0.1.0"
+  codename: "Genesis"
+  author: "Harsh Kumar Sharma"
+  description: "Personal AI Operating Intelligence"
+  environment: "development"
+
+window:
+  title: "ÆTHERIS"
+  width: 1280
+  height: 720
+  min_width: 1000
+  min_height: 650
+  resizable: true
+  fullscreen: false
+
+theme:
+  mode: "dark"
+  accent: "#00D4FF"
+  font: "Segoe UI"
+
+logging:
+  enabled: true
+  level: "INFO"
+  file: "logs/aetheris.log"
+
+debug:
+  enabled: true
+
+voice:
+  enabled: false
+  wake_word: "Aetheris"
+  language: "en"
+
+ai:
+  provider: "none"
+  model: "none"
+  fallback_enabled: true
+
+memory:
+  enabled: true
+  database: "data/aetheris.db"
+
+automation:
+  enabled: false
+
+internet:
+  enabled: true
+
+plugins:
+  enabled: true
+  directory: "plugins"
+
+security:
+  safe_mode: true
+  require_confirmation: true
+
+paths:
+  assets: "assets"
+  logs: "logs"
+  data: "data"
+  models: "models"
+  plugins: "plugins"
