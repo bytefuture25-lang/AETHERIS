@@ -90,17 +90,27 @@ class DashboardPage(QWidget):
                 status=f"{ram['percent']} % Used"
             )
 
-        # --------------------------------
-        # Disk (Temporary)
-        # --------------------------------
+        # -----------------------
+        # Internet
+        # -----------------------
 
-        disk_card = self.status_grid.get_card("Internet")
+        internet_card = self.status_grid.get_card("Internet")
 
-        if disk_card:
+        if internet_card:
 
-            disk = data["disk"]
+            internet = data["internet"]
 
-            disk_card.update(
-                value=f"{disk['percent']} %",
-                status="Disk Usage"
-            )
+            if internet == "Online":
+
+                internet_card.update(
+                    value="🟢 Online",
+                    status="Connected"
+                )
+
+            else:
+
+                internet_card.update(
+                    value="🔴 Offline",
+                    status="No Connection",
+                    status_color="#EF4444"
+                )
