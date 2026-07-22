@@ -1,8 +1,12 @@
+from turtle import right
+
+from app.gui.components.live_clock import LiveClock
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QFrame,
     QLabel,
     QHBoxLayout,
+    QVBoxLayout,
 )
 
 from app.core.constants import (
@@ -13,29 +17,86 @@ from app.core.constants import (
 
 
 class Header(QFrame):
+    """
+    Top application header.
+    """
+
     def __init__(self):
         super().__init__()
 
-        self.setFixedHeight(70)
-
         self.setObjectName("Header")
+        self.setFixedHeight(120)
 
-        layout = QHBoxLayout(self)
+        # ==========================
+        # Main Layout
+        # ==========================
 
-        layout.setContentsMargins(20, 10, 20, 10)
+        root = QHBoxLayout(self)
+
+        root.setContentsMargins(20, 12, 20, 12)
+        root.setSpacing(20)
+
+        # ==========================
+        # LEFT
+        # ==========================
+
+        left = QVBoxLayout()
 
         title = QLabel(APP_NAME)
         title.setObjectName("AppTitle")
 
-        version = QLabel(
-            f"v{APP_VERSION} • {APP_CODENAME}"
-        )
+        subtitle = QLabel("Personal AI Operating Intelligence")
+        subtitle.setObjectName("AppSubtitle")
 
-        status = QLabel("● Ready")
-        status.setAlignment(Qt.AlignmentFlag.AlignRight)
+        left.addWidget(title)
+        left.addWidget(subtitle)
 
-        layout.addWidget(title)
-        layout.addStretch()
-        layout.addWidget(version)
-        layout.addSpacing(20)
-        layout.addWidget(status)
+        # ==========================
+        # CENTER
+        # ==========================
+
+        center = QVBoxLayout()
+
+        ai_title = QLabel("Current AI")
+        ai_title.setObjectName("HeaderLabel")
+
+        self.ai_status = QLabel("Ollama (Local)")
+        self.ai_status.setObjectName("HeaderValue")
+
+        center.addWidget(ai_title)
+        center.addWidget(self.ai_status)
+
+        # ==========================
+        # RIGHT
+        # ==========================
+
+        right = QVBoxLayout()
+
+        right.setSpacing(2)
+        right.setAlignment(Qt.AlignmentFlag.AlignTop)
+
+        self.status = QLabel("🟢 Ready")
+        self.status.setObjectName("HeaderStatus")
+        self.status.setAlignment(Qt.AlignmentFlag.AlignRight)
+
+        version = QLabel(f"v{APP_VERSION} • {APP_CODENAME}")
+        version.setObjectName("HeaderVersion")
+        version.setAlignment(Qt.AlignmentFlag.AlignRight)
+
+        clock = LiveClock()
+
+        right.setSpacing(4)
+
+        right.addWidget(self.status)
+        right.addWidget(version)
+        right.addWidget(clock)
+
+        # ==========================
+        # Assemble
+        # ==========================
+
+        root.addLayout(left)
+        root.addStretch()
+        root.addLayout(center)
+        root.addStretch()
+        root.addLayout(right)

@@ -1,37 +1,17 @@
 """
 ÆTHERIS Theme System
+Professional Theme v2
 """
 
-from PySide6.QtGui import QColor
-
-# ----------------------------------------------------------
-# Color Palette
-# ----------------------------------------------------------
-
-BACKGROUND = "#0F172A"
-SURFACE = "#1E293B"
-
-PRIMARY = "#00D4FF"
-
-SUCCESS = "#22C55E"
-WARNING = "#F59E0B"
-ERROR = "#EF4444"
-
-TEXT_PRIMARY = "#F8FAFC"
-TEXT_SECONDARY = "#CBD5E1"
-
-# ----------------------------------------------------------
-# Window
-# ----------------------------------------------------------
-
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-
-WINDOW_TITLE = "ÆTHERIS"
-
-# ----------------------------------------------------------
-# Global Stylesheet
-# ----------------------------------------------------------
+from app.gui.design_system import (
+    WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE,
+    PRIMARY, PRIMARY_HOVER, SUCCESS, WARNING, ERROR,
+    BACKGROUND, SURFACE, CARD,
+    TEXT_PRIMARY, TEXT_SECONDARY, TEXT_MUTED,
+    BORDER,
+    RADIUS_SMALL, RADIUS_MEDIUM, RADIUS_LARGE,
+    TITLE, SUBTITLE, HEADING, BODY, SMALL, FONT,
+)
 
 STYLE_SHEET = f"""
 QMainWindow {{
@@ -41,13 +21,14 @@ QMainWindow {{
 QWidget {{
     background-color: {BACKGROUND};
     color: {TEXT_PRIMARY};
-    font-family: "Segoe UI";
-    font-size: 11pt;
+    font-family: "{FONT}";
+    font-size: {BODY}px;
 }}
 
 QStatusBar {{
     background-color: {SURFACE};
     color: {TEXT_PRIMARY};
+    border-top: 1px solid {BORDER};
 }}
 
 QLabel {{
@@ -55,92 +36,287 @@ QLabel {{
 }}
 
 #Header {{
-    background-color: #1E293B;
-    border-bottom: 1px solid #334155;
+    background-color: {SURFACE};
+    border-bottom: 1px solid {BORDER};
 }}
 
-#AppTitle {{
-    font-size: 22px;
-    font-weight: 700;
-    color: #00D4FF;
+#AppTitle {{ font-size:22px; font-weight:bold; color:{PRIMARY}; }}
+#AppSubtitle {{ font-size:{SMALL}px; color:{TEXT_MUTED}; }}
+#HeaderLabel {{ font-size:{SMALL}px; color:{TEXT_MUTED}; }}
+#HeaderValue {{ font-size:{BODY}px; font-weight:bold; color:{PRIMARY}; }}
+#HeaderVersion {{ font-size:{SMALL}px; color:{TEXT_SECONDARY}; }}
+#HeaderStatus {{ font-size:{BODY}px; font-weight:bold; color:{SUCCESS}; }}
+
+#Sidebar {{
+    background-color:{SURFACE};
+    border-right:1px solid {BORDER};
 }}
 
-#PageTitle {{
-    font-size:30px;
-    font-weight:700;
-    color:#00D4FF;
+#SidebarLogo {{ font-size:24px; font-weight:bold; color:{PRIMARY}; }}
+#SidebarTitle {{ font-size:{BODY}px; font-weight:bold; color:{TEXT_SECONDARY}; }}
+#SidebarFooter {{ font-size:{SMALL}px; color:{TEXT_MUTED}; }}
+
+QPushButton#NavButton {{
+    background-color:{CARD};
+    border:1px solid {BORDER};
+    border-radius:{RADIUS_MEDIUM}px;
+    text-align:left;
+    padding:12px 16px;
 }}
 
-#PageSubtitle {{
-    font-size:14px;
-    color:#CBD5E1;
+QPushButton#NavButton:hover {{
+    border:1px solid {PRIMARY};
+    background:#162033;
 }}
 
-#StatusCard {{
-    background-color: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 12px;
+QPushButton#NavButton[active="true"] {{
+    background:{PRIMARY};
+    color:black;
+    font-weight:bold;
 }}
-
-#StatusCard:hover {{
-    border: 1px solid #00D4FF;
-}}
-
-#CardTitle {{
-    font-size: 12px;
-    color: #CBD5E1;
-}}
-
-#CardValue {{
-    font-size: 22px;
-    font-weight: bold;
-    color: #F8FAFC;
-}}
-
-#CardStatus {{
-    font-size: 11px;
-    color: #22C55E;
-}}
-
 
 #WelcomeBanner {{
-    background-color: #1E293B;
-    border-radius: 12px;
-    border: 1px solid #334155;
+    background-color:{SURFACE};
+    border:1px solid {BORDER};
+    border-radius:{RADIUS_LARGE}px;
 }}
 
-#BannerTitle {{
-    font-size: 28px;
-    font-weight: bold;
-    color: #00D4FF;
+#BannerTitle {{ font-size:{TITLE}px; font-weight:bold; }}
+#BannerSubtitle {{ font-size:{BODY}px; color:{TEXT_MUTED}; }}
+
+#BannerInfo {{
+    background-color:{CARD};
+    border:1px solid {BORDER};
+    border-radius:{RADIUS_SMALL}px;
+    padding:6px 12px;
 }}
 
-#BannerSubtitle {{
-    font-size: 14px;
-    color: #CBD5E1;
+#StatusGrid {{ background:transparent; }}
+
+#StatusCard {{
+    background-color:{CARD};
+    border:1px solid {BORDER};
+    border-radius:{RADIUS_MEDIUM}px;
 }}
 
-#StatusGrid {{
-    background: transparent;
+#StatusCard:hover {{ border:1px solid {PRIMARY}; }}
+
+#CardIcon {{ font-size:18px; }}
+#CardTitle {{ font-size:{BODY}px; font-weight:bold; color:{TEXT_SECONDARY}; }}
+#CardValue {{ font-size:26px; font-weight:bold; color:{TEXT_PRIMARY}; }}
+#CardStatus {{ font-size:{SMALL}px; color:{TEXT_MUTED}; }}
+
+QProgressBar#CardProgress {{
+    border:none;
+    border-radius:4px;
+    background:{SURFACE};
+    height:8px;
+}}
+
+QProgressBar#CardProgress::chunk {{
+    background:{PRIMARY};
+    border-radius:4px;
 }}
 
 #ActivityPanel {{
-    background-color: #1E293B;
+    background:{CARD};
+    border:1px solid {BORDER};
+    border-radius:{RADIUS_MEDIUM}px;
+}}
+
+#ActivityTitle {{
+    font-size:{HEADING}px;
+    font-weight:bold;
+    color:{PRIMARY};
+}}
+
+QTextEdit {{
+    background:{SURFACE};
+    border:none;
+    border-radius:{RADIUS_SMALL}px;
+    color:{TEXT_PRIMARY};
+    padding:10px;
+}}
+
+#PageTitle {{ font-size:30px; font-weight:bold; color:{PRIMARY}; }}
+#PageSubtitle {{ font-size:{BODY}px; color:{TEXT_SECONDARY}; }}
+
+#SystemInfo {{
+    background-color: {CARD};
+    border: 1px solid {BORDER};
+    border-radius: {RADIUS_MEDIUM}px;
+}}
+
+#SystemInfoTitle {{
+    font-size: {HEADING}px;
+    font-weight: bold;
+    color: {PRIMARY};
+}}
+
+#InfoLabel {{
+    color: {TEXT_MUTED};
+    font-size: {BODY}px;
+}}
+
+#InfoValue {{
+    color: {TEXT_PRIMARY};
+    font-size: {BODY}px;
+    font-weight: bold;
+}}
+
+#ClockTime {{
+    font-size: 18px;
+    font-weight: bold;
+    color: {PRIMARY};
+}}
+
+#ClockDate {{
+    font-size: 11px;
+    color: {TEXT_MUTED};
+}}
+
+/* ==========================================
+   Chat Header
+========================================== */
+
+#ChatHeader {{
+    background-color: #111827;
     border: 1px solid #334155;
     border-radius: 12px;
 }}
 
-#ActivityTitle {{
-    font-size:18px;
-    font-weight:bold;
-    color:#00D4FF;
+#ChatHeaderTitle {{
+    font-size: 18px;
+    font-weight: bold;
+    color: #00D4FF;
+}}
+
+#ChatHeaderModel {{
+    color: #CBD5E1;
+    font-size: 12px;
+}}
+
+#ChatHeaderStatus {{
+    color: #22C55E;
+    font-weight: bold;
+}}
+
+/* ==========================================
+   CHAT HISTORY
+========================================== */
+
+#ChatHistory {{
+
+    background: #111827;
+
+    border: 1px solid #334155;
+
+    border-radius: 14px;
+}}
+
+/* ==========================================
+   Chat Input
+========================================== */
+
+#ChatInput {{
+    background-color: #111827;
+    border: 1px solid #334155;
+    border-radius: 12px;
 }}
 
 QTextEdit {{
-    background-color:#111827;
-    border:none;
-    border-radius:8px;
-    color:#F8FAFC;
-    padding:10px;
+    background-color: #0F172A;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #F8FAFC;
+    padding: 8px;
+}}
+
+#PrimaryButton {{
+    background-color: #00D4FF;
+    color: #0F172A;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: bold;
+}}
+
+#PrimaryButton:hover {{
+    background-color: #38BDF8;
+}}
+
+/* ==========================================
+   MESSAGE BUBBLES
+========================================== */
+
+#UserBubble {{
+
+    background:#22D3EE;
+
+    border-radius:18px;
+
+    margin:6px;
+}}
+
+#UserBubble QLabel{{
+
+    color:#04121C;
+
+    background:transparent;
+
+    font-size:14px;
+}}
+
+
+#AIBubble {{
+
+    background-color:{SURFACE};
+
+    border:1px solid {BORDER};
+
+    border-radius:{RADIUS_MEDIUM}px;
+
+    margin:6px;
+}}
+
+#AIBubble QLabel{{
+
+    color:white;
+
+    background:transparent;
+
+    font-size:14px;
+}}
+
+QPushButton {{
+    border: {BORDER};
+    border-radius: 8px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.08);
+}}
+
+QPushButton:hover {{
+    background: rgba(255,255,255,0.15);
+}}
+
+QPushButton:pressed {{
+    background: rgba(255,255,255,0.25);
+}}
+
+#BubbleCopyButton {{
+    border: none;
+    border-radius: 8px;
+    padding: 4px 10px;
+    background-color: #334155;
+    color: #F8FAFC;
+}}
+
+#BubbleCopyButton:hover {{
+    background-color: #475569;
+}}
+
+#BubbleCopyButton:disabled {{
+    background-color: #1E293B;
+    color: #94A3B8;
 }}
 """

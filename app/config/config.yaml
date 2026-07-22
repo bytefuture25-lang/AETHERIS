@@ -31,22 +31,32 @@ debug:
 voice:
   enabled: false
   wake_word: "Aetheris"
-  language: "en"
+  language: "en-US"
+  input_device: "default"
+  output_device: "default"
 
 ai:
-  provider: "none"
-  model: "none"
+  provider: "ollama"
+  model: "qwen3:4b"
+  temperature: 0.4
+  max_tokens: 1536
+  context_length: 20
+  streaming: true
   fallback_enabled: true
 
 memory:
   enabled: true
   database: "data/aetheris.db"
+  auto_save: true
+  session_limit: 20
+  max_relevant_memories: 8
 
 automation:
   enabled: false
 
 internet:
   enabled: true
+  timeout: 15
 
 plugins:
   enabled: true
@@ -62,3 +72,7 @@ paths:
   data: "data"
   models: "models"
   plugins: "plugins"
+
+developer:
+  show_debug_console: true
+  hot_reload: false
